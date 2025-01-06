@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class StudentController {
     @Autowired
@@ -29,4 +31,24 @@ public class StudentController {
         }
     }
 
+    @PostMapping("/updateAge")
+    public ResponseEntity<String> updateAge(@RequestParam int rollNo, @RequestParam int age){
+        try {
+            studentService.updateStudentAge(rollNo,age);
+            return ResponseEntity.ok("Age of student " +rollNo+ " is updated to "+age);
+        } catch (StudentNotFoundException e){
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/getAboveAge")
+    public List<Student> getStudentAboveAge(){
+        return studentService.getStudentAboveAge25();
+    }
+
+    @DeleteMapping("/deleteAllStudents")
+    public String deleteStudents(){
+        studentService.deleteAllStudents();
+        return "All Student's data deleted succesfully";
+    }
 }
