@@ -24,7 +24,7 @@ public class StudentService {
         if(student==null){
             throw new StudentNotFoundException("Student with rollNo. "+ rollNo + " not found");
         }
-            studentRepository.delete(student);
+        studentRepository.delete(student);
         return student;
     }
 
